@@ -1,21 +1,59 @@
-import { Button, VerticalBox } from "std-widgets.slint";
+import { Button, VerticalBox, HorizontalBox, LineEdit, ProgressIndicator } from "std-widgets.slint";
 
 export component MainWindow inherits Window {
     width: 400px;
     height: 300px;
     title: "FileGuard";
 
-    VerticalLayout {
-        Text {
-            text: "Hello FileGuard users!";
-            font-size: 24px;
+    VerticalBox {
+        padding: 20px;
+        spacing: 15px;
+
+        Rectangle {
+            height: 50px;
+            border-radius: 8px;
+            border-width: 2px;
+            Text {
+                text: "Drag your file here!";
+                vertical-alignment: center;
+                horizontal-alignment: center;
+            }
         }
 
-        Button {
-            text: "Click here!";
-            clicked => {
-                self.text = "Clicked";
+        HorizontalBox {
+            Text {
+                text: "Password";
+                vertical-alignment: center;
+                horizontal-alignment: center;
+                color: #fff;
             }
+            LineEdit {
+                input-type: password;
+                placeholder-text: "Type the password";
+            }
+            spacing: 10px;
+        }
+
+        HorizontalBox {
+            Button {
+                text: "Encryption";
+            }
+            Button {
+                text: "Decryption";
+            }
+        }
+
+        HorizontalBox {
+            alignment: center;
+            Button {
+                text: "Start processing";
+                width: 150px;
+                clicked => {/*TODO*/}
+            }
+        }
+
+        ProgressIndicator {
+            indeterminate: true;
         }
     }
 }
