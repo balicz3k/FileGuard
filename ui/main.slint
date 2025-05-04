@@ -1,0 +1,21 @@
+import { Button, VerticalBox } from "std-widgets.slint";
+
+export component MainWindow inherits Window {
+    width: 400px;
+    height: 300px;
+    title: "FileGuard";
+
+    VerticalLayout {
+        Text {
+            text: "Hello FileGuard users!";
+            font-size: 24px;
+        }
+
+        Button {
+            text: "Click here!";
+            clicked => {
+                self.text = "Clicked";
+            }
+        }
+    }
+}
