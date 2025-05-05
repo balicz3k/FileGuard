@@ -1,14 +1,14 @@
-pub enum LogLevel {
+pub(crate) enum LogLevel {
     ERR,
     WRN,
     INF,
     DBG
 }
 
-pub struct Logger;
+pub(crate) struct Logger;
 
 impl Logger {
-    pub fn log(level: LogLevel, args: std::fmt::Arguments<'_>) {
+    pub(crate) fn log(level: LogLevel, args: std::fmt::Arguments<'_>) {
         let timestamp = chrono::Local::now().format("%H:%M:%S");
         let level_prefix = match level {
             LogLevel::ERR => "\x1b[31m[ERR]\x1b[0m",    /*Red prefix color*/
