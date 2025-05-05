@@ -1,9 +1,24 @@
-import { Button, VerticalBox, HorizontalBox, LineEdit, ProgressIndicator } from "std-widgets.slint";
+import { Button, VerticalBox, HorizontalBox, LineEdit, ProgressIndicator} from "std-widgets.slint";
+
+enum Operation {
+    Encryption,
+    Decryption
+}
 
 export component MainWindow inherits Window {
     width: 400px;
     height: 300px;
     title: "FileGuard";
+
+    in-out property <Operation> operation;
+    in-out property <bool> is_processing;
+    in-out property <bool> is_password_filled;
+    in-out property <bool> is_file_included;
+    in-out property <string> input_file;
+    in-out property <string> input_password;
+
+    callback select_file();
+    callback remove_file();
 
     VerticalBox {
         padding: 20px;
@@ -13,11 +28,27 @@ export component MainWindow inherits Window {
             height: 50px;
             border-radius: 8px;
             border-width: 2px;
+
+            TouchArea {
+                double-clicked => {
+                    root.select_file();
+                }
+            }
+
             Text {
-                text: "Drag your file here!";
+                text: "Double click to attach file!";
                 vertical-alignment: center;
                 horizontal-alignment: center;
+                visible: !is_file_included;
             }
+
+            Text {
+                text: "[TEMPORARY SOLUTION] Your file was attached :)";
+                vertical-alignment: center;
+                horizontal-alignment: center;
+                visible: is_file_included;
+            }
+
         }
 
         HorizontalBox {
@@ -30,6 +61,10 @@ export component MainWindow inherits Window {
             LineEdit {
                 input-type: password;
                 placeholder-text: "Type the password";
+                text <=> input_password;
+                changed text => {
+                    is_password_filled = self.text != "";
+                }
             }
             spacing: 10px;
         }
@@ -37,9 +72,15 @@ export component MainWindow inherits Window {
         HorizontalBox {
             Button {
                 text: "Encryption";
+                clicked => {
+                    operation = Operation.Encryption;
+                }
             }
             Button {
                 text: "Decryption";
+                clicked => {
+                    operation = Operation.Decryption;
+                }
             }
         }
 
@@ -48,11 +89,19 @@ export component MainWindow inherits Window {
             Button {
                 text: "Start processing";
                 width: 150px;
-                clicked => {/*TODO*/}
+                clicked => {
+                    is_password_filled = true;
+                    is_file_included = true;
+                    if(is_file_included && is_password_filled) {
+                        is_processing = true;
+                        /*TODO call appropriate rust function*/
+                    }
+                }
             }
         }
 
         ProgressIndicator {
+            visible: is_processing;
             indeterminate: true;
         }
     }
