@@ -1,3 +1,4 @@
+mod logger;
 slint::include_modules!();
 use native_dialog;
 use native_dialog::{DialogBuilder};
@@ -22,7 +23,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 .show()
                 .unwrap(){
                 let path_str = path.to_string_lossy().to_string();
-                println!("Selected file {}.", path_str);
+                log_inf!("File: {} was selected", path_str);
                 ui.set_input_file(path_str.into());
                 ui.set_is_file_included(true);
             }

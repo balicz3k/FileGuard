@@ -6,6 +6,7 @@ edition = "2024"
 [dependencies]
 slint = {version = "1.11.0", features = ["std"]}
 native-dialog = { version = "0.9.0" }
+chrono = {version = "0.4.41"}
 
 [build-dependencies]
 slint-build = { version = "1.11.0" }
