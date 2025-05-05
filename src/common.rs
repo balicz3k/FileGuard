@@ -1,0 +1,1 @@
+slint::include_modules!(); // Generate MainWindow and other types

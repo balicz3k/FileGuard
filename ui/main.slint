@@ -2,7 +2,8 @@ import { Button, VerticalBox, HorizontalBox, LineEdit, ProgressIndicator} from "
 
 enum Operation {
     Encryption,
-    Decryption
+    Decryption,
+    None
 }
 
 export component MainWindow inherits Window {
@@ -10,13 +11,14 @@ export component MainWindow inherits Window {
     height: 300px;
     title: "FileGuard";
 
-    in-out property <Operation> operation;
+    in-out property <Operation> operation: Operation.None;
     in-out property <bool> is_processing;
-    in-out property <bool> is_password_filled;
-    in-out property <bool> is_file_included;
-    in-out property <string> input_file;
-    in-out property <string> input_password;
+    in-out property <bool> is_password_filled: false;
+    in-out property <bool> is_file_included: false;
+    in-out property <string> input_file: "";
+    in-out property <string> input_password: "";
 
+    callback log_dbg(string);
     callback select_file();
     callback remove_file();
 

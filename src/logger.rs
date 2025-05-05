@@ -21,6 +21,16 @@ impl Logger {
 }
 
 #[macro_export]
+macro_rules! log_dbg {
+    ($($arg:tt)*) => {
+        $crate::logger::Logger::log(
+            $crate::logger::LogLevel::DBG,
+            format_args!($($arg)*)
+        )
+    };
+}
+
+#[macro_export]
 macro_rules! log_inf {
     ($($arg:tt)*) => {
         $crate::logger::Logger::log(
